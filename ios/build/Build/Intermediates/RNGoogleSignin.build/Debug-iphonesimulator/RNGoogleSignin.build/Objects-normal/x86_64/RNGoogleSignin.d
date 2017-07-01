@@ -1,0 +1,29 @@
+dependencies: \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/node_modules/react-native-google-signin/ios/RNGoogleSignin/RNGoogleSignin.m \
+  RNGoogleSignin/RNGoogleSignIn.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  GoogleSdk/GoogleSignIn.framework/Modules/module.modulemap \
+  GoogleSdk/GoogleSignIn.framework/Headers/GIDSignInButton.h \
+  GoogleSdk/GoogleSignIn.framework/Headers/GIDSignIn.h \
+  GoogleSdk/GoogleSignIn.framework/Headers/GIDProfileData.h \
+  GoogleSdk/GoogleSignIn.framework/Headers/GIDGoogleUser.h \
+  GoogleSdk/GoogleSignIn.framework/Headers/GIDAuthentication.h \
+  GoogleSdk/GoogleSignIn.framework/Headers/GoogleSignIn.h \
+  ../../react-native/React/Base/RCTEventDispatcher.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h

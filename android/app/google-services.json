@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "113332297879",
+    "project_id": "birdstories-806223"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113332297879:android:f887482103575a30",
+        "android_client_info": {
+          "package_name": "com.sukatha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113332297879-b05eujdmsvrlt3a9huibk0qf8grijb20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sukatha",
+            "certificate_hash": "0490df39047a3bf0dc591aaca59cd24cccab11f1"
+          }
+        },
+        {
+          "client_id": "113332297879-2c0bl4e42qokglovtthficb1ubvldgch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR_QYLBEm6ZYjSLff5aHZN3xuSN_gqgj4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-96616230-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

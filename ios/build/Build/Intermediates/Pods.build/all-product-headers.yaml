@@ -1,0 +1,132 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/DCTAuth/DCTAuth.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "DCTAuth-Swift.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/DCTAuth/DCTAuth.framework/Headers/DCTAuth-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuth-umbrella.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/Target Support Files/DCTAuth/DCTAuth-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuth.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuth.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthAccount.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccount.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthAccountCredential.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccountCredential.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthAccountStore.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccountStore.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthAccountSubclass.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccountSubclass.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthPlatform.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthPlatform.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthRequest.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthRequest.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthRequestMethod.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthRequestMethod.h"
+        },
+        {
+          'type': 'file',
+          'name': "DCTAuthResponse.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthResponse.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/DCTAuth/DCTAuth.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Intermediates/Pods.build/Debug-iphonesimulator/DCTAuth.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukatha.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-sukatha-umbrella.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/Target Support Files/Pods-sukatha/Pods-sukatha-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_sukatha-Swift.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukatha.framework/Headers/Pods_sukatha-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukatha.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Intermediates/Pods.build/Debug-iphonesimulator/Pods-sukatha.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukathaTests.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-sukathaTests-umbrella.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/Target Support Files/Pods-sukathaTests/Pods-sukathaTests-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_sukathaTests-Swift.h",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukathaTests.framework/Headers/Pods_sukathaTests-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/Pods_sukathaTests.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Intermediates/Pods.build/Debug-iphonesimulator/Pods-sukathaTests.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+dependencies: \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthURLRequestPerformer.m \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Intermediates/Pods.build/Debug-iphonesimulator/DCTAuth.build/module.modulemap \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/Target\ Support\ Files/DCTAuth/DCTAuth-prefix.pch \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthURLRequestPerformer.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthRequest.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthRequestMethod.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccount.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthAccountSubclass.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthResponse.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthContent.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/Pods/DCTAuth/DCTAuth/DCTAuthContentType.h

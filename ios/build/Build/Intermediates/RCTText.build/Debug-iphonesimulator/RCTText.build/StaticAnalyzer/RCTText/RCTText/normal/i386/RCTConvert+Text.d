@@ -1,0 +1,15 @@
+dependencies: \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/node_modules/react-native/Libraries/Text/RCTConvert+Text.m \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/node_modules/react-native/Libraries/Text/RCTConvert+Text.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/mmt6628/Phani/BirdStories/BSWorkspace/mobileGateway/sukatha/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h
