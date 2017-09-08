@@ -3,11 +3,16 @@ import  Constants from './storiesConstants';
 import Server from '../Utils/server';
 
 
-function fetchSuccess(stories){
-  return {
+function fetchSuccess(stories,genre){
+  var obj =  {
     type:Constants.StoriesChangeEvent,
     stories:stories
   };
+
+  if(genre){
+    obj.genre = genre
+  }
+  return obj
 }
 
 function shouldFetchStories(state) {
@@ -29,30 +34,53 @@ function fetchStoriesIfNeeded() {
 
 function fetchStories(){
   return function(dispatch) {
-    Server.fetch('stories',function(data){
+    Server.fetch('stories?limit=4',function(data){
         dispatch(fetchSuccess(data))
     });
   }
 }
 
 function moreStoriesSuccess(data){
-  return {
-    type:Constants.MoreStoriesSuccess,
-    stories:data,
-  };
+    var obj = {
+      type:Constants.MoreStoriesSuccess,
+      stories:data,
+    };
+    return obj
 }
 
 function getMoreStories(){
     return function(dispatch,getState){
-      const stories = getState().stories
+      const stories = getState().storiesStore.stories
       var story = stories[stories.length-1]
-      var q = ""
-      if(story){
-        q = "?lastts="+story.timestamp
+      var q = "?limit=4"
+
+      var filter = getState().storiesStore.filter
+      if(filter){
+        q = "?limit=50"
+        q=q+"&genre="+filter
       }
 
+      if(story){
+        q = q+"&lastts="+story.timestamp
+      }
+
+
+
       Server.fetch('stories'+q,function(data){
-          dispatch(moreStoriesSuccess(data))
+          if(!data.code)
+            dispatch(moreStoriesSuccess(data))
+          else{
+            dispatch(moreStoriesSuccess([]))
+          }
+      });
+    }
+}
+
+function getFilteredStories(genre){
+    return function(dispatch,getState){
+      var q = "?limit=100&genre="+genre
+      Server.fetch('stories'+q,function(data){
+          dispatch(fetchSuccess(data,genre))
       });
     }
 }
@@ -144,19 +172,9 @@ function updateSuccess(attributes,element){
   };
 }
 
-function updateSocial(element){
+function updateSocial(element,storyId){
 
   return function(dispatch,getState) {
-    const story = getState().selectedStory
-
-    if(!story){
-      return
-    }
-    const storyId = {
-      author:story.author,
-      timestamp:story.timestamp
-    }
-
     const body = {
       id:storyId,
       updateAttr:"social",
@@ -187,7 +205,7 @@ function getStoryContent(authorId,name){
 function storyDetailsSuccess(data){
 
   if(!data || !data.timestamp){
-    window.location.replace("/")
+    return
   }
   return {
     type:Constants.StoryDetailsSuccess,
@@ -218,6 +236,21 @@ function getAuthorDetails(authorId){
   }
 }
 
+function filtersSuccess(filters){
+  return {
+    type:Constants.StoryFiltersSuccess,
+    filters:filters
+  };
+}
+
+function getFilters(){
+    return function(dispatch,getState){
+      Server.fetch('stories/filters',function(data){
+          dispatch(filtersSuccess(data))
+      });
+    }
+}
+
 const Actions = {
     fetchStories:fetchStories,
     fetchStoriesIfNeeded:fetchStoriesIfNeeded,
@@ -231,7 +264,9 @@ const Actions = {
     getComments:fetchComments,
     getMoreComments:getMoreComments,
     getMoreStories:getMoreStories,
-    clearSelectedState:clearSelectedState
+    clearSelectedState:clearSelectedState,
+    getFilteredStories:getFilteredStories,
+    getFilters:getFilters
 };
 
 export default Actions

@@ -9,7 +9,11 @@ const Colors = {
   black:'black',
   white:'white',
   sGray:'#d6d7da',
-  sSkyBlue:'#4966a6'
+  sSkyBlue:'#4966a6',
+  headerBlue:'#162b4d',
+  headerPink:'#b71757',
+  darkGray:'#555',
+  transBlack:'rgba(0,0,0,0.8)'
 }
 
 export default Colors;

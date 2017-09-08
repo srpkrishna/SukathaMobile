@@ -5,15 +5,17 @@ import Item from '../Common/halfItem.js'
 import Colors from '../Utils/colors.js';
 import Utils from '../Utils/utilityFunctions.js'
 import CommonStyles from '../Utils/styles.js';
+import SendAnalytics from '../Utils/analytics';
 
 class Viewer extends React.Component {
 
   static  navigationOptions = ({navigation}) => ({
      title: `${navigation.state.params.penName}`,
      headerStyle:{
-       backgroundColor:Colors.sBlue
+       backgroundColor:Colors.headerBlue
      },
-     headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
+     headerTitleStyle :{textAlign: 'center',alignSelf:'center',fontFamily: 'Lato-Medium'},
+     titleStyle:{fontFamily: 'Lato-Medium'},
      headerTintColor:'white'
    })
 
@@ -22,11 +24,7 @@ class Viewer extends React.Component {
   }
 
   componentDidMount(){
-
-    if(!this.props.data.author){
-      this.props.data.getMyDetails(this.props.data.user);
-    }
-
+    SendAnalytics.sendPageView("profileHome","/home/profile")
   }
 
   getItem(data){
@@ -35,27 +33,29 @@ class Viewer extends React.Component {
 
     var metrics = ""
 
-    if(data.time){
-      var mins = "mins"
-      if(1 === data.time)
-        mins  = "min"
-
-      metrics = data.time+mins
+    if(data.social.reads > 1){
+        metrics = data.social.reads+" reads"
+    }else if(data.social.likes > 0){
+        metrics = data.social.reads+" read"
     }
 
-
-    if(data.genre && data.genre.length > 0){
-      metrics = metrics+" . "+Utils.capitalizeFirstLetter(data.genre[0]);
-      for(var i = 1 ; i < data.genre.length ; i++){
-        metrics = metrics +"-"+Utils.capitalizeFirstLetter(data.genre[i])
-      }
+    if(data.social.likes > 1){
+        metrics = metrics+"  "+data.social.likes+" likes"
+    }else if(data.social.likes > 0){
+        metrics = metrics+"  "+data.social.likes+" like"
     }
 
-    var views = "views"
-    if(1 === data.social.views)
-      views = "view"
+    if(data.social.shares > 1){
+        metrics = metrics+"  "+data.social.shares+" shares"
+    }else if(data.social.likes > 0){
+        metrics = metrics+"  "+data.social.shares+" share"
+    }
 
-    metrics = metrics +" . "+data.social.views+views
+    // if(data.social.views > 1){
+    //     metrics = metrics+"  "+data.social.views+"views"
+    // }else if(data.social.views > 0){
+    //     metrics = metrics+"  "+data.social.views+"view"
+    // }
 
     var item ={
       title:data.displayName,
@@ -96,7 +96,7 @@ class Viewer extends React.Component {
       tag.push(<Person person={person} />)
 
       if(seriesList && seriesList.length > 0){
-        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>His Series:</Text></View>);
+        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>My Series:</Text></View>);
 
         for (var index = 0; index < seriesList.length; index++) {
           var series = seriesList[index];
@@ -109,7 +109,7 @@ class Viewer extends React.Component {
 
       if(stories && stories.length > 0){
 
-        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>His Stories:</Text></View>);
+        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>My Stories:</Text></View>);
 
         for (var index = 0; index < stories.length; index++) {
           var story = stories[index];

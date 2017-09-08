@@ -3,30 +3,43 @@ import Viewer from '../Viewer/viewer.js';
 import  Actions from '../Stories/storiesActions.js';
 import  AuthorActions from '../Author/authorActions.js';
 import { NavigationActions } from 'react-navigation';
+import SendAnalytics from '../Utils/analytics';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,props) => {
 
   return {
     content: state.storiesStore.selectedContent,
     story:state.storiesStore.selectedStory,
     author:state.storiesStore.selectedAuthor,
     authorLink:state.storiesStore.authorLink,
-    comments:state.storiesStore.selectedStoryComments
+    comments:state.storiesStore.selectedStoryComments,
+    shdShowMoreComments:state.storiesStore.shdShowMoreComments,
+    user:state.authStore,
+    params:props.params
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch,state) => {
   return {
-    updateSocial: (element) => {
-      const obj = Actions.updateSocial(element);
+    updateSocial: (element,author,timestamp) => {
+      const storyId = {
+        author:author,
+        timestamp:timestamp
+      }
+      const obj = Actions.updateSocial(element,storyId);
       dispatch(obj);
     },
     showMoreComments:(story,lastTimeStamp) =>{
       const obj = Actions.getMoreComments(story,lastTimeStamp);
       dispatch(obj);
     },
-    getStoryDetails:() =>{
-      const obj = Actions.getStoryDetails();
+    setStory:(data)=>{
+      dispatch(Actions.clearSelectedState(data))
+      dispatch(Actions.storyDetailsSuccess(data))
+    },
+    getStoryDetails:(authorId,timestamp) =>{
+      dispatch(Actions.clearSelectedState({timestamp:timestamp,author:authorId}));
+      const obj = Actions.getStoryDetails(authorId,timestamp);
       dispatch(obj);
     },
     getStoryContent:(authorId,name) =>{
@@ -42,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(obj);
     },
     openAuthor:(data) =>{
+      SendAnalytics.sendEvent('Story','openAuthor',data.penName);
       dispatch(AuthorActions.clearAuthorState(data))
       dispatch(AuthorActions.authorDetailsSuccess(data))
       dispatch(NavigationActions.navigate({ routeName: 'Author', params: data }));

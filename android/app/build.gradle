@@ -33,6 +33,13 @@ import com.android.build.OutputFile
  *   // bundleInPaidRelease: true,
  *   // bundleInBeta: true,
  *
+ *   // whether to disable dev mode in custom build variants (by default only disabled in release)
+ *   // for example: to disable dev mode in the staging build type (if configured)
+ *   devDisabledInStaging: true,
+ *   // The configuration property can be in the following formats
+ *   //         'devDisabledIn${productFlavor}${buildType}'
+ *   //         'devDisabledIn${buildType}'
+ *
  *   // the root of your project, i.e. where "package.json" lives
  *   root: "../../",
  *
@@ -80,20 +87,39 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.sukatha"
-        minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode 3
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
+        }
+        multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+        debug {
+            if (project.hasProperty('MYAPP_DEBUG_STORE_FILE')) {
+                storeFile file(MYAPP_DEBUG_STORE_FILE)
+                storePassword MYAPP_DEBUG_STORE_PASSWORD
+                keyAlias MYAPP_DEBUG_KEY_ALIAS
+                keyPassword MYAPP_DEBUG_KEY_PASSWORD
+            }
         }
     }
     splits {
@@ -108,6 +134,10 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release
@@ -126,17 +156,33 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-share')
+    compile project(':react-native-splash-screen')
     compile project(':react-native-fbsdk')
+    compile project(':react-native-device-info')
+    compile project(':react-native-share')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:25.0.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile ('com.google.android.gms:play-services-auth:9.2.1'){
         force=true
     }
+
+    compile ('com.google.android.gms:play-services-analytics:9.2.1'){
+        force=true
+    }
+
+    compile ('com.google.android.gms:play-services-gcm:9.2.1'){
+        force=true
+    }
+
     compile(project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important
     }
+    compile (project(':react-native-google-analytics-bridge')){
+        exclude group: "com.google.android.gms" // very important
+    }
+
+    compile project(':react-native-push-notification')
 
 }
 

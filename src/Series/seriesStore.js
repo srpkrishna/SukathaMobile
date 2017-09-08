@@ -11,11 +11,11 @@ const reducer = (state=defaultState, action) => {
       case Constants.SeriesListChangeEvent:
         var newState = Object.assign({}, state);
         newState.seriesList =  action.seriesList;
+        var currentDate = new Date()
+        newState.lastUpdatedAt = currentDate.getTime();
         return newState;
       case Constants.MoreSeriesSuccess:
         var newState = Object.assign({}, state);
-
-
         if(action.seriesList && action.seriesList.length == 0){
           newState.reachedEnd = true;
         }else{
@@ -49,7 +49,7 @@ const reducer = (state=defaultState, action) => {
       case Constants.SeriesContentSuccess:
         var newState = Object.assign({}, state);
         newState.selectedContent = action.content;
-        newState.selectedEpisode = action.episode
+        newState.selectedEpisode = action.episode;
         return newState;
       case Constants.SeriesAuthorDetailsSuccess:
         var newState = Object.assign({}, state);
@@ -64,11 +64,18 @@ const reducer = (state=defaultState, action) => {
       case Constants.SeriesDetailsSuccess:
         var newState = Object.assign({}, state);
         newState.selectedSeries = action.series;
+        newState.selectedEpisode = action.episode;
         return newState;
       case Constants.SeriesCommentsSuccess:
         var newState = Object.assign({}, state);
         newState.selectedSeriesComments = action.comments;
+        //5 is dependent on server
+        newState.shdShowMoreComments = false;
+        if(action.comments && action.comments.length % 5 === 0){
+          newState.shdShowMoreComments = true;
+        }
         return newState;
+
       case Constants.SeriesCommentPostSuccess:
         var newState = Object.assign({}, state);
 
@@ -80,30 +87,37 @@ const reducer = (state=defaultState, action) => {
           newState.selectedSeriesComments = comments
         }
         return newState;
+
       case Constants.SeriesMoreCommentsSuccess:
-        var newState = Object.assign({}, state);
+          var newState = Object.assign({}, state);
+          if(action.comments.length > 0){
+            var comments = Object.assign([], newState.selectedSeriesComments);
+            newState.selectedSeriesComments = comments.concat(action.comments);
+            newState.shdShowMoreComments = false
+            if(action.comments.length % 5 == 0){
+              newState.shdShowMoreComments = true
+            }
+            return newState;
+          }else {
+            newState.shdShowMoreComments = false;
+            return newState;
+          }
 
-        if(!newState.selectedSeriesComments){
-          newState.selectedSeriesComments = [action.comment]
-        }else{
-          var comments = Object.assign([], newState.selectedSeriesComments);
-          newState.selectedSeriesComments = comments.concat(action.comments)
-        }
-        return newState;
+      case Constants.SeriesClearSelectedState:
 
-        case Constants.SeriesClearSelectedState:
-
-          if(!state.selectedSeries){
+          if(!state.selectedSeries || !action.series){
             return state;
           }
 
-          if(action.series.timestamp !== state.selectedSeries.timestamp && action.series.author !==  state.selectedSeries.author){
+          if(action.series.timestamp !== state.selectedSeries.timestamp || action.series.author !==  state.selectedSeries.author || action.episode !== state.selectedEpisode){
               var newState = Object.assign({}, state);
               newState.selectedSeriesComments = undefined;
               newState.selectedSeries = undefined;
               newState.selectedAuthor = undefined;
               newState.selectedContent = undefined;
               newState.selectedEpisode = undefined;
+              newState.shdShowMoreComments = false;
+              newState.reachedEnd = false;
               return newState;
           }
 

@@ -58,8 +58,15 @@ function getMySeries(penName){
   }
 }
 
+function clearProfile(){
+  return {
+    type:Constants.ClearProfile
+  }
+}
+
 const Actions = {
-    getMyDetails:getMyDetails
+    getMyDetails:getMyDetails,
+    clearProfile:clearProfile
 };
 
 export default Actions

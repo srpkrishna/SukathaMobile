@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Login from './login.js';
+import AuthButton from './authButton.js';
 import  Actions from './authActions.js';
 import { NavigationActions } from 'react-navigation';
 
@@ -12,13 +12,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUser:() => {
-      const obj = Actions.fetchUser();
+    logout:(user) => {
+      const obj = Actions.logout(user);
       dispatch(obj);
     },
-    setGUser:(data) =>{
-      const obj = Actions.setGoogleUser(data);
-      dispatch(obj);
+    openLogin(){
+      dispatch(NavigationActions.navigate({ routeName: 'Login'}));
     }
   }
 }
@@ -26,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 const Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login)
+)(AuthButton)
 
 
 export default Container

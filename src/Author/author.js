@@ -5,16 +5,20 @@ import Item from '../Common/halfItem.js'
 import Colors from '../Utils/colors.js';
 import Utils from '../Utils/utilityFunctions.js'
 import CommonStyles from '../Utils/styles.js';
+import SendAnalytics from '../Utils/analytics';
 
 class Viewer extends React.Component {
 
   static  navigationOptions = ({navigation}) => ({
-     title: `${navigation.state.params.penName}`,
+     title: 'Author',
      headerStyle:{
-       backgroundColor:Colors.sBlue
+       backgroundColor:Colors.headerBlue
      },
-     headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
-     headerTintColor:'white'
+     headerTitleStyle :{textAlign: 'center',alignSelf:'center',fontFamily: 'Lato-Medium'},
+     titleStyle:{fontFamily: 'Lato-Medium'},
+     headerBackTitleStyle:{fontFamily:'NotoSansTelugu'},
+     headerTintColor:'white',
+     headerRight:<View />,
    })
 
   constructor(props) {
@@ -27,8 +31,10 @@ class Viewer extends React.Component {
     if(this.props.author){
       authorId = this.props.author.penName;
 
+    }else if(this.props.params && this.props.params.authorId){
+      authorId = this.props.params.authorId;
+      this.props.getAuthorDetails(authorId)
     }else{
-      //this.props.getStoryDetails()
       return
     }
 
@@ -39,6 +45,8 @@ class Viewer extends React.Component {
     if(!this.props.seriesList && authorId){
       this.props.getAuthorSeries(authorId)
     }
+
+    SendAnalytics.sendPageView(authorId,"/author/"+authorId)
 
   }
 
@@ -53,12 +61,12 @@ class Viewer extends React.Component {
       if(1 === data.time)
         mins  = "min"
 
-      metrics = data.time+mins
+      metrics = data.time+mins+" . "
     }
 
 
     if(data.genre && data.genre.length > 0){
-      metrics = metrics+" . "+Utils.capitalizeFirstLetter(data.genre[0]);
+      metrics = metrics+Utils.capitalizeFirstLetter(data.genre[0]);
       for(var i = 1 ; i < data.genre.length ; i++){
         metrics = metrics +"-"+Utils.capitalizeFirstLetter(data.genre[i])
       }
@@ -109,7 +117,7 @@ class Viewer extends React.Component {
       tag.push(<Person person={person} />)
 
       if(seriesList && seriesList.length > 0){
-        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>His Series:</Text></View>);
+        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>Series:</Text></View>);
 
         for (var index = 0; index < seriesList.length; index++) {
           var series = seriesList[index];
@@ -122,7 +130,7 @@ class Viewer extends React.Component {
 
       if(stories && stories.length > 0){
 
-        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>His Stories:</Text></View>);
+        tag.push(<View style={CommonStyles.sectionHeader}><Text style={CommonStyles.sectionTitle}>Stories:</Text></View>);
 
         for (var index = 0; index < stories.length; index++) {
           var story = stories[index];

@@ -29,7 +29,7 @@ function fetchSeriesListIfNeeded() {
 
 function fetchSeriesList(){
   return function(dispatch) {
-    Server.fetch('series',function(data){
+    Server.fetch('series?limit=4',function(data){
         dispatch(fetchSuccess(data))
     });
   }
@@ -44,23 +44,28 @@ function moreSeriesSuccess(data){
 
 function getMoreSeries(){
     return function(dispatch,getState){
-      const seriesList = getState().seriesList
+      const seriesList = getState().seriesStore.seriesList
       var lastItem = seriesList[seriesList.length-1]
-      var q = ""
+      var q = "?limit=4"
       if(lastItem){
-        q = "?lastts="+lastItem.lastUpdated
+        q = q+"&lastts="+lastItem.lastUpdated
       }
 
       Server.fetch('series'+q,function(data){
+        if(!data.code)
           dispatch(moreSeriesSuccess(data))
+        else{
+          dispatch(moreSeriesSuccess([]))
+        }
       });
     }
 }
 
-function clearSelectedState(series){
+function clearSelectedState(series,episode){
   return{
     type:Constants.SeriesClearSelectedState,
-    series:series
+    series:series,
+    episode:episode
   }
 }
 
@@ -157,18 +162,9 @@ function updateSuccess(attributes,element){
   };
 }
 
-function updateSocial(element){
+function updateSocial(element,seriesId){
 
   return function(dispatch,getState) {
-    const series = getState().selectedSeries
-
-    if(!series){
-      return
-    }
-    const seriesId = {
-      author:series.author,
-      timestamp:series.timestamp
-    }
 
     const body = {
       id:seriesId,
@@ -197,27 +193,29 @@ function getSeriesContent(authorId,name,episodeNumber){
     if(episodeNumber){
       episode = episode + '/'+episodeNumber
     }
+    dispatch(contentSuccess(undefined,episodeNumber))
     Server.fetch('series/content/'+authorId+'/'+episode,function(data){
         dispatch(contentSuccess(data,episodeNumber))
     });
   }
 }
 
-function seriesDetailsSuccess(data){
+function seriesDetailsSuccess(data,episode){
 
-  // if(!data || !data.timestamp){
-  //   window.location.replace("/")
-  // }
+  if(!data || !data.timestamp){
+    return
+  }
   return {
     type:Constants.SeriesDetailsSuccess,
     series:data,
+    episode:episode
   };
 }
 
-function getSeriesDetails(authorId,id){
+function getSeriesDetails(authorId,id,episode){
   return function(dispatch) {
     Server.fetch('series/'+authorId+'/'+id,function(data){
-        dispatch(seriesDetailsSuccess(data))
+        dispatch(seriesDetailsSuccess(data,episode))
     });
   }
 }

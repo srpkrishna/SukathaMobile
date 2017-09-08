@@ -8,13 +8,27 @@ const Styles = StyleSheet.create({
   },
   sectionHeader:{
     flex: 1,
-    height: 35,
+    height: 30,
     justifyContent:'center',
-    backgroundColor:Colors.sGray,
+    backgroundColor:Colors.white,
+    shadowColor: Colors.black,
+    shadowOffset: {
+      width: 0,
+      height: -1
+    },
+    shadowRadius: 1,
+    shadowOpacity: 0.2,
+    borderTopWidth: 5,
+    borderColor: Colors.sGray,
+    marginTop:20,
+    paddingVertical:20
   },
   sectionTitle:{
     color:Colors.black,
-    paddingLeft:5
+    paddingLeft:5,
+    opacity:0.8,
+    fontFamily:'Lato-Medium',
+    fontSize:18
   }
 });
 

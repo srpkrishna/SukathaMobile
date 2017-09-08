@@ -10,7 +10,10 @@ const mapStateToProps = (state) => {
     user:state.authStore,
     stories:state.profileStore.stories,
     seriesList:state.profileStore.seriesList,
-    author:state.profileStore.author
+    author:state.profileStore.author,
+    isAuthor:state.profileStore.isAuthor,
+    isDataLoaded:state.profileStore.isDataLoaded,
+    isLoggedInCancelled:state.nav.isCancelled
   }
 }
 
@@ -18,6 +21,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getMyDetails:(user) => {
       const obj = Actions.getMyDetails(user);
+      dispatch(obj);
+    },
+    clearProfile:() =>{
+      const obj = Actions.clearProfile();
       dispatch(obj);
     },
     openViewer:(data,author,isStory) =>{
@@ -28,12 +35,15 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(StoryActions.storyAuthorDetailsSuccess(author));
         dispatch(NavigationActions.navigate({ routeName: 'Viewer', params: data }));
       }else{
-        dispatch(SeriesActions.clearSelectedState(data));
-        dispatch(SeriesActions.seriesDetailsSuccess(data));
+        var episode = data.episodes.length
+        dispatch(SeriesActions.clearSelectedState(data,episode));
+        dispatch(SeriesActions.seriesDetailsSuccess(data,episode));
         dispatch(SeriesActions.seriesAuthorDetailsSuccess(author));
         dispatch(NavigationActions.navigate({ routeName: 'Viewer', params: data }));
       }
-
+    },
+    openLogin(){
+      dispatch(NavigationActions.navigate({ routeName: 'Login'}));
     }
   }
 }

@@ -12,16 +12,22 @@ const reducer = (state=defaultState, action) => {
       case Constants.StoriesChangeEvent:
         var newState = Object.assign({}, state);
         newState.stories =  action.stories;
+        if(action.genre){
+          newState.filter = action.genre;
+        }else{
+          newState.filter = undefined;
+        }
+        var currentDate = new Date();
+        newState.lastUpdatedAt = currentDate.getTime();
         return newState;
       case Constants.MoreStoriesSuccess:
         var newState = Object.assign({}, state);
 
-        if(action.stories && action.stories.length == 0){
+        if(action.stories && action.stories.length === 0){
           newState.reachedEnd = true;
         }else{
           newState.stories =  newState.stories.concat(action.stories);
         }
-
         return newState;
 
       case Constants.StoryChangeEvent:
@@ -68,6 +74,10 @@ const reducer = (state=defaultState, action) => {
       case Constants.StoryCommentsSuccess:
         var newState = Object.assign({}, state);
         newState.selectedStoryComments = action.comments;
+        newState.shdShowMoreComments = false
+        if(action.comments && action.comments.length % 5 === 0){
+          newState.shdShowMoreComments = true
+        }
         return newState;
       case Constants.StoryCommentPostSuccess:
         var newState = Object.assign({}, state);
@@ -81,32 +91,47 @@ const reducer = (state=defaultState, action) => {
         }
         return newState;
       case Constants.StoryMoreCommentsSuccess:
-        var newState = Object.assign({}, state);
 
-        if(!newState.selectedStoryComments){
-          newState.selectedStoryComments = [action.comment]
-        }else{
+        var newState = Object.assign({}, state);
+        if(action.comments.length > 0){
           var comments = Object.assign([], newState.selectedStoryComments);
-          newState.selectedStoryComments = comments.concat(action.comments)
+          newState.selectedStoryComments = comments.concat(action.comments);
+          newState.shdShowMoreComments = false
+          if(action.comments.length % 5 == 0){
+            newState.shdShowMoreComments = true
+          }
+          return newState;
+        }else {
+          newState.shdShowMoreComments = false;
+          return newState;
         }
-        return newState;
+
 
     case Constants.StoryClearSelectedState:
 
-      if(!state.selectedStory){
+      if(!state.selectedStory || !action.story){
         return state;
       }
 
-      if(action.story.timestamp !== state.selectedStory.timestamp && action.story.author !==  state.selectedStory.author){
+      if(action.story.timestamp !== state.selectedStory.timestamp || action.story.author !==  state.selectedStory.author){
           var newState = Object.assign({}, state);
           newState.selectedStoryComments = undefined;
           newState.selectedStory = undefined;
           newState.selectedAuthor = undefined;
           newState.selectedContent = undefined;
+          newState.shdShowMoreComments = false;
+          newState.reachedEnd = false;
           return newState;
       }
-
       return state;
+
+      case Constants.StoryFiltersSuccess:
+        if(action.filters && action.filters.length>0){
+          var newState = Object.assign({}, state);
+          newState.filters = action.filters
+          return newState;
+        }
+        return state;
 
       default:
         return state;

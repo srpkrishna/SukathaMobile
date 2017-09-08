@@ -6,7 +6,8 @@ import { NavigationActions } from 'react-navigation';
 const mapStateToProps = (state) => {
   return {
     seriesList: state.seriesStore.seriesList,
-    reachedEnd:state.seriesStore.reachedEnd
+    reachedEnd:state.seriesStore.reachedEnd,
+    lastUpdatedAt:state.seriesStore.lastUpdatedAt
   }
 }
 
@@ -21,8 +22,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(obj);
     },
     openViewer:(data) =>{
-      dispatch(Actions.clearSelectedState(data))
-      dispatch(Actions.seriesDetailsSuccess(data))
+      var episode = data.episodes.length
+      dispatch(Actions.clearSelectedState(data,episode))
       dispatch(NavigationActions.navigate({ routeName: 'Viewer', params: data }));
     }
   }

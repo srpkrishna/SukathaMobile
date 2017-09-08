@@ -1,21 +1,30 @@
 import React, { PropTypes } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, StyleSheet, TextInput, View ,Text,Dimensions} from 'react-native';
 import Colors from '../Utils/colors.js';
 import AuthController from '../Auth/authController.js';
+import SButton from '../Common/sButton.js';
+import NavButton from '../Common/navButton.js';
+import SendAnalytics from '../Utils/analytics';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
   input:{
-    height: 200,
+    height: 180,
+    width:Dimensions.get('window').width-40,
     backgroundColor: Colors.white,
-    borderWidth: 1,
+    borderWidth: 0.5,
+    borderColor: Colors.sGray,
     margin:10,
-    padding:5
-  }
+    padding:5,
+    fontSize:16
+  },
+  publishView:{
+    flex:1,
+    alignItems:'center',
+  },
 });
 
 
@@ -23,10 +32,13 @@ class CommentScreen extends React.Component {
 
   static  navigationOptions = ({navigation}) => ({
      title: `Add Comment`,
+     header:undefined,
+     headerLeft:<NavButton title={'Cancel'} page={'login'} action={() => navigation.dispatch({type: 'back_screen'})}/>,
      headerStyle:{
-       backgroundColor:Colors.sBlue
+       backgroundColor:Colors.headerBlue
      },
-     headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
+     headerTitleStyle :{textAlign: 'center',alignSelf:'center',fontFamily: 'Lato-Medium'},
+     titleStyle:{fontFamily: 'NotoSansTelugu'},
      headerTintColor:'white'
    })
 
@@ -41,7 +53,8 @@ class CommentScreen extends React.Component {
       }
     }
 
-    this.state = { text: '' };
+    this.state = { text: text };
+    SendAnalytics.sendEvent('Common','commentLoaded',this.props.user.email);
   }
 
   onPress(){
@@ -62,7 +75,7 @@ class CommentScreen extends React.Component {
       comment.replyTo = data.replyTo
       comment.replyToName = data.mention
     }
-
+    SendAnalytics.sendEvent('Common','commentPosted',this.props.user.email);
     this.props.publishComment(comment,data.story,data.author,data.episode)
   }
 
@@ -81,10 +94,13 @@ class CommentScreen extends React.Component {
             style={styles.input}
             multiline = {true}
             numberOfLines = {4}
+            autoFocus = {true}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
           />
-          <Button title={title} color={Colors.sPink} onPress={this.onPress.bind(this)}/>
+          <View style={styles.publishView}>
+            <SButton title={title} onPress={this.onPress.bind(this)}/>
+          </View>
         </View>);
     }else{
       return(<AuthController />);

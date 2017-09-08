@@ -7,10 +7,11 @@ import Colors from '../Utils/colors.js';
 const styles = StyleSheet.create({
   para:{
     textAlign: 'left',
-    lineHeight: 28,
+    lineHeight: 30,
     color:Colors.sBlue,
-    fontSize:16,
-    paddingTop:15
+    fontSize:18,
+    paddingTop:15,
+    fontFamily:'NotoSansTelugu'
   },
   paraHighlight:{
     textAlign: 'center',
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     flexWrap:'wrap',
     padding: 10,
+    paddingTop:0,
     paddingBottom:30,
     backgroundColor:Colors.white,
     flex:1
@@ -34,19 +36,40 @@ const styles = StyleSheet.create({
 
 export default class Body extends React.Component {
 
+  getStyle(obj){
+    var serverStyle = {}
+    if(obj.color){
+      serverStyle.color = obj.color
+    }
+
+    if(obj.textAlign){
+      serverStyle.textAlign = obj.textAlign
+    }
+
+    if(obj.fontWeight){
+      serverStyle.fontWeight = obj.fontWeight
+    }
+
+    if(obj.fontVariant){
+      serverStyle.fontVariant = obj.fontVariant
+    }
+
+    if(obj.fontStyle){
+      serverStyle.fontStyle = obj.fontStyle
+    }
+    return serverStyle;
+  }
   render(){
     const content = this.props.content
     let htmlContent = [];
 
     if(!content.code)
     {
-      //const styles = content.styles;
+      const contentStyles = content.styles;
       var i = 0;
       for (var paraObj of content.content){
-        // let paraStyle = styles[paraObj.style];
-        // if(!paraStyle){
-        //   paraStyle = styles["default"];
-        // }
+        let paraStyle = contentStyles[paraObj.style];
+
 
         if(paraObj.imgsrc){
           // let imgStyle = styles[paraObj.imgstyle];
@@ -57,7 +80,16 @@ export default class Body extends React.Component {
 
         if(paraObj.text){
           var text = '      ' + paraObj.text
-          htmlContent.push(<Text style={styles.para} key={i}>{text}</Text>);
+
+          var textStyles = [styles.para]
+          if(paraStyle){
+            textStyles.push(this.getStyle(paraStyle))
+
+            if(paraStyle && (paraStyle.textAlign || paraStyle.textIndent)){
+              text = paraObj.text
+            }
+          }
+          htmlContent.push(<Text style={textStyles} key={i}>{text}</Text>);
         }
         i++;
       }

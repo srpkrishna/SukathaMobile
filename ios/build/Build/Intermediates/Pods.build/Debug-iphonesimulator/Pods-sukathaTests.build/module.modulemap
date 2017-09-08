@@ -1,6 +1,0 @@
-framework module Pods_sukathaTests {
-  umbrella header "Pods-sukathaTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -22,8 +22,10 @@ let styles = StyleSheet.create({
     textAlign: 'left',
     lineHeight: 22,
     color:Colors.white,
-    fontSize:14,
-    backgroundColor:'transparent'
+    fontSize:16,
+    backgroundColor:'transparent',
+    fontFamily:'NotoSansTelugu',
+    opacity:0.9
   },
   shortContainer:{
     flex:3,
@@ -36,9 +38,11 @@ let styles = StyleSheet.create({
     textAlign: 'right',
     lineHeight: 28,
     color:Colors.white,
-    fontSize:16,
+    fontSize:14,
     flex:1,
-    backgroundColor:'transparent'
+    backgroundColor:'transparent',
+    fontFamily:'Lato-Medium',
+    opacity:0.8
   },
   photo:{
     width:100,
@@ -61,7 +65,7 @@ const Header = ({story})=>{
         <View style={styles.shortContainer}>
           <Text style={styles.shortText} numberOfLines={4}>{story.shortText}</Text>
         </View>
-        <Text style={styles.authorText}>-{story.authorDisplayName}</Text>
+        <Text style={styles.authorText}>- {story.authorDisplayName}</Text>
       </View>
     </Image>
   )

@@ -25,6 +25,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>sukatha</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>fb1882742771959476</string>
 			</array>
 		</dict>
@@ -57,6 +63,7 @@
 	<string>SuKatha</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>whatsapp</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
@@ -76,7 +83,17 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Lato-Black.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-Light.ttf</string>
+		<string>Lato-Medium.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Thin.ttf</string>
+		<string>NotoSansTelugu-Regular.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -86,8 +103,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

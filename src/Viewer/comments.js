@@ -1,33 +1,50 @@
 'use strict';
 
 import React from 'react';
-import {View,Text,Button,StyleSheet} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native';
 import Colors from '../Utils/colors.js';
+import SButton from '../Common/sButton.js';
 
 let styles = StyleSheet.create({
   textContainer:{
     flex:1,
     flexDirection:'column',
-    flexWrap:'wrap',
-    borderBottomWidth: 0.5,
-    padding:10,
-    borderColor: Colors.sGray
+    // borderBottomWidth: 0.5,
+    margin:15,
+    marginTop:5
+    // borderColor: Colors.sGray
   },
   title:{
     textAlign: 'left',
     color:Colors.sSkyBlue,
     fontWeight:'bold',
-    fontSize:17,
+    fontSize:15,
     backgroundColor:'transparent',
-    flex:1
+    flex:1,
+    fontFamily:'Lato-Medium'
   },
-  shortText:{
+  msg:{
     textAlign: 'left',
-    lineHeight: 20,
-    color:Colors.sBlue,
+    color:Colors.darkGray,
     fontSize:14,
     backgroundColor:'transparent',
-    flex:1
+    flex:1,
+    fontFamily:'Lato-Medium',
+    paddingVertical:5
+  },
+  replyButton:{
+    flex:1,
+    alignItems:'flex-end',
+    marginBottom:10,
+  },
+  replyText:{
+    fontFamily:'Lato-Medium',
+    color:Colors.black,
+  },
+  showMore:{
+    marginTop:15,
+    marginBottom:20,
+    alignItems:'center'
   }
 });
 
@@ -52,8 +69,12 @@ class Comments extends React.Component {
     return(
       <View style={styles.textContainer} key={index}>
         <Text style={styles.title}>{userName}</Text>
-        <Text style={styles.shortText}>{comment.text}</Text>
-        <Button title="Reply" color={Colors.sPink} onPress={this.onReplyPress.bind(this,comment.userEmail,comment.userName)}/>
+        <Text style={styles.msg}>{comment.text}</Text>
+        <View style={styles.replyButton}>
+          <TouchableOpacity activeOpacity={0.5} onPress={this.onReplyPress.bind(this,comment.userEmail,comment.userName)}>
+            <Text  style={styles.replyText}>Reply</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -65,9 +86,10 @@ class Comments extends React.Component {
     for (var index = 0; index < comments.length; index++) {
       tag.push(this.getCommentView(comments[index],index));
     }
-    // var comments = this.props.comments.map(function(comment,i) {
-    //   that.getCommentView(comment)
-    // });
+
+    if(this.props.shdShowMoreComments){
+      tag.push(<View style={styles.showMore} key={comments.length} ><SButton title={'More comments'} onPress={this.props.showMoreComments}/></View>);
+    }
 
     return (
       <View style={{flex: 1, paddingTop: 10}}>

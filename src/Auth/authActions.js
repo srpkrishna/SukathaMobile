@@ -2,12 +2,18 @@
 import  Constants from './authConstants';
 import Server from '../Utils/server';
 import {GoogleSignin} from 'react-native-google-signin';
+import SendAnalytics from '../Utils/analytics';
+import DeviceInfo from 'react-native-device-info';
+import Notifications from '../Common/notifications.js';
+import {Platform} from 'react-native';
 
 const FBSDK = require('react-native-fbsdk');
 const {
-  AccessToken,
+  LoginManager,AccessToken
 } = FBSDK;
 
+var isUserGoogleReg = true
+var isUserFBReg = true
 
 function loginUserSuccess(user){
   return {
@@ -16,10 +22,46 @@ function loginUserSuccess(user){
   };
 }
 
+function fetchClientTokenWithId(){
+  if(!isUserGoogleReg && !isUserFBReg){
+    var clientID = DeviceInfo.getUniqueID();
+    var version = DeviceInfo.getVersion();
+    var client = {
+      id:clientID,
+      platform:Platform.OS,
+      version:version
+    }
+
+    Notifications.register(client)
+    SendAnalytics.setUserId(clientID);
+  }
+}
+
+function fetchClientTokenWithEmail(user){
+  var clientID = DeviceInfo.getUniqueID();
+  var version = DeviceInfo.getVersion();
+  var client = {
+    id:clientID,
+    platform:Platform.OS,
+    email:user.email,
+    version:version
+  }
+
+  Server.connect('POST','user',user,function(data){
+      if(!data.code){
+          SendAnalytics.setUserId(data.id);
+          client.userId = data.id
+          Notifications.register(client)
+      }
+  });
+}
+
 function fetchUser(){
   return function(dispatch) {
     AccessToken.getCurrentAccessToken().then((data) => {
       if(!data){
+        isUserFBReg = false
+        fetchClientTokenWithId()
         return
       }
       const { accessToken } = data
@@ -34,6 +76,7 @@ function fetchUser(){
         user.imageUrl = json.picture.data.url;
         user.token = accessToken;
         user.service = 'fb';
+        fetchClientTokenWithEmail(user)
         return dispatch(loginUserSuccess(user));
       });
     })
@@ -45,7 +88,11 @@ function fetchUser(){
     .then(() => {
       GoogleSignin.currentUserAsync().then((json) => {
 
-          if(!json){return}
+          if(!json){
+            isUserGoogleReg = false;
+            fetchClientTokenWithId()
+            return
+          }
 
           var user = {}
           user.name = json.name;
@@ -54,6 +101,7 @@ function fetchUser(){
           user.imageUrl = json.photo;
           user.token = json.idToken;
           user.service = 'google';
+          fetchClientTokenWithEmail(user)
           return dispatch(loginUserSuccess(user));
 
         }).done();
@@ -73,10 +121,32 @@ function setGoogleUser(json){
   return loginUserSuccess(user);
 }
 
+function logoutUserSuccess(){
+  return {
+    type:Constants.Logout_Success_Event
+  };
+}
+
+function logout(user){
+  return function(dispatch) {
+    if(user.service == 'google'){
+      GoogleSignin.signOut().then(() => {
+      }).catch((err) => {
+      });
+
+      return dispatch(logoutUserSuccess());
+
+    }else if(user.service == 'fb'){
+      LoginManager.logOut()
+      return dispatch(logoutUserSuccess());
+    }
+  }
+}
+
 const Actions = {
     fetchUser:fetchUser,
-    loginUserSuccess:loginUserSuccess,
-    setGoogleUser:setGoogleUser
+    setGoogleUser:setGoogleUser,
+    logout:logout
 };
 
 export default Actions
