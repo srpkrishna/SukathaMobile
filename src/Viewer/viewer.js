@@ -414,9 +414,11 @@ class Viewer extends React.Component {
         link = link+'/stories/story?'+query;
       }
 
+      var msg = "Read "+title+". I loved it"
+
       let shareOptions = {
         title: title,
-        message: "I love this story. Read it.",
+        message: msg,
         url: link,
         subject: "Share Link" //  for email
       };
