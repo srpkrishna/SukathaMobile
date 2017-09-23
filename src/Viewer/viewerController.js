@@ -4,21 +4,20 @@ import StoriesViewer from '../Stories/storiesViewer.js';
 import Colors from '../Utils/colors.js';
 import Utils from '../Utils/utilityFunctions.js';
 import {View} from 'react-native';
+import Title from './titleController.js';
 
 class Viewer extends React.Component {
 
   static  navigationOptions = ({navigation}) => {
 
-    var title = ""
+    var headerTitle;
 
     if(navigation.state.params.displayName){
-      title = navigation.state.params.displayName
-    }else if(navigation.state.params.n){
-      title = Utils.capitalizeFirstLetter(navigation.state.params.n)
+      headerTitle = navigation.state.params.displayName
     }
 
     return({
-     title: title,
+     headerTitle: <Title title={headerTitle} isSeries={navigation.state.params.isSeries}/>,
      headerStyle:{
        backgroundColor:Colors.headerBlue
      },

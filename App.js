@@ -27,14 +27,21 @@ export default class App extends React.Component {
         var that = this
         PushNotification.configure({
             onNotification: (notification) => {
-                if(notification.url && notification.userInteraction === true){
-                  that.handleUrl(notification.url,'notification')
+                PushNotification.setApplicationIconBadgeNumber(0);
+                if(notification.userInteraction === true){
+                  if(Platform.OS === 'ios' && notification.data.url){
+                    that.handleUrl(notification.data.url,'notificationIOS')
+                  }else if(notification.url){
+                    that.handleUrl(notification.url,'notification')
+                  }
                 }
+
             }
         })
     }
 
   componentDidMount() {
+    PushNotification.setApplicationIconBadgeNumber(0);
     Linking.addEventListener('url', this.handleOpenURL);
     Linking.getInitialURL().then((url) => {
       if (url) {
@@ -42,7 +49,6 @@ export default class App extends React.Component {
         setTimeout(function() {
           that.handleUrl(url,'weblink')
         },1);
-        console.log('Initial url is: ' + url);
       }
     }).catch(err => console.error('An error occurred', err));
     SplashScreen.hide();
@@ -93,7 +99,7 @@ export default class App extends React.Component {
             NavigationActions.navigate({ routeName: 'Viewer', params: data})
           ]
         })
-        Store.dispatch(NavigationActions.navigate(resetAction));
+        Store.dispatch(NavigationActions.navigate(NavigationActions.navigate({ routeName: 'Viewer', params: data})));
       }else{
         const resetAction = NavigationActions.reset({
           index: 0,
@@ -120,6 +126,7 @@ export default class App extends React.Component {
   render() {
 
     if(Platform.OS === 'ios'){
+      StatusBar.setBarStyle("light-content");
       return (
          <Provider store={Store} >
            <AppWithNavigationState />

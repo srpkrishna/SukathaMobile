@@ -118,7 +118,7 @@ class Viewer extends React.Component {
         isEpisodeChanged = true;
         clearTimeout(t);
         t = setTimeout(function(){ that.countTime() }, 1000*60);
-      },5);
+      },500);
 
 
 

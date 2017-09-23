@@ -73,7 +73,11 @@ export default class EpisodeStrip extends React.Component {
     var totalFitNum = parseInt(screenFit)
 
     if(this.props.totalEpisodes < (episode + totalFitNum)){
-      this.flatListRef.scrollToEnd({animated: true});
+      var index = this.props.totalEpisodes-totalFitNum
+      if(index < 0){
+        index = 0
+      }
+      this.flatListRef.scrollToIndex({index:index,animated: true})
       return
     }
     var index = episode-1

@@ -3,10 +3,9 @@ import SendAnalytics from '../Utils/analytics.js';
 import Utils from '../Utils/utilityFunctions.js';
 
 const screenTracker = ({ getState }) => next => (action) => {
-  if (
-    action.type !== NavigationActions.NAVIGATE
-    && action.type !== NavigationActions.BACK
-  ) {
+
+  if(!action || !action.type){return next(action);}
+  if (action.type !== NavigationActions.NAVIGATE && action.type !== NavigationActions.BACK) {
     return next(action);
   }
 
