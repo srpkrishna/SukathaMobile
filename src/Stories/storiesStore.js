@@ -9,8 +9,14 @@ const defaultState = {
 
 const reducer = (state=defaultState, action) => {
     switch (action.type) {
+      case Constants.StoriesNetworkError:
+        var newState = Object.assign({}, state);
+        newState.isNetworkError = true
+        return newState;
       case Constants.StoriesChangeEvent:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
+
         newState.stories =  action.stories;
         if(action.genre){
           newState.filter = action.genre;
@@ -22,6 +28,7 @@ const reducer = (state=defaultState, action) => {
         return newState;
       case Constants.MoreStoriesSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
 
         if(action.stories && action.stories.length === 0){
           newState.reachedEnd = true;
@@ -32,6 +39,8 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.StoryChangeEvent:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
+
         var viewerStory = Object.assign({}, state.selectedStory);
         var selectedStory = Object.assign({}, viewerStory);
         var element = action.element;
@@ -55,10 +64,12 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.StoryContentSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedContent = action.content;
         return newState;
       case Constants.StoryAuthorDetailsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedAuthor = action.author;
         const link = "/author/"+action.author.penName;
         const linkObj = {
@@ -69,10 +80,12 @@ const reducer = (state=defaultState, action) => {
         return newState;
       case Constants.StoryDetailsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedStory = action.story;
         return newState;
       case Constants.StoryCommentsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedStoryComments = action.comments;
         newState.shdShowMoreComments = false
         if(action.comments && action.comments.length % 5 === 0){
@@ -81,7 +94,7 @@ const reducer = (state=defaultState, action) => {
         return newState;
       case Constants.StoryCommentPostSuccess:
         var newState = Object.assign({}, state);
-
+        newState.isNetworkError = false
         if(!newState.selectedStoryComments){
           newState.selectedStoryComments = [action.comment]
         }else{
@@ -93,6 +106,7 @@ const reducer = (state=defaultState, action) => {
       case Constants.StoryMoreCommentsSuccess:
 
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         if(action.comments.length > 0){
           var comments = Object.assign([], newState.selectedStoryComments);
           newState.selectedStoryComments = comments.concat(action.comments);
@@ -121,6 +135,7 @@ const reducer = (state=defaultState, action) => {
           newState.selectedContent = undefined;
           newState.shdShowMoreComments = false;
           newState.reachedEnd = false;
+          newState.isNetworkError = false
           return newState;
       }
       return state;
@@ -128,6 +143,7 @@ const reducer = (state=defaultState, action) => {
       case Constants.StoryFiltersSuccess:
         if(action.filters && action.filters.length>0){
           var newState = Object.assign({}, state);
+          newState.isNetworkError = false
           newState.filters = action.filters
           return newState;
         }

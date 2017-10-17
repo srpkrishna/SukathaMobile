@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { ActivityIndicator, View, Text, ListView ,AppState} from 'react-native';
 import Item from '../Common/item.js';
 import SendAnalytics from '../Utils/analytics';
+import NetworkView from '../Common/networkView.js';
+import Utils from '../Utils/utilityFunctions.js';
 
 export default class SeriesView extends Component {
 
   getState(props){
 
     var isLoading = true;
+    var isNetworkError = false;
     var seriesList;
     if(props.seriesList && props.seriesList.length >0 ){
       var data = Object.assign([], props.seriesList);
@@ -19,9 +22,14 @@ export default class SeriesView extends Component {
       seriesList = ds.cloneWithRows(data);
     }
 
+    if(props.isNetworkError){
+      isNetworkError = true;
+    }
+
     return {
       isLoading: isLoading,
-      seriesList:seriesList
+      seriesList:seriesList,
+      isNetworkError:isNetworkError
     }
   }
   constructor(props) {
@@ -47,10 +55,10 @@ export default class SeriesView extends Component {
   }
 
   handleAppStateChange = (nextAppState) => {
-    if (nextAppState === 'active' && this.props.lastUpdatedAt) {
+    if (nextAppState === 'active' && (this.props.lastUpdatedAt|| this.props.isNetworkError)) {
       var currentDate = new Date()
       var diff = Math.abs(currentDate.getTime() - this.props.lastUpdatedAt) / 3600000;
-      if(diff > 2){
+      if(diff > 2 || this.props.isNetworkError){
         this.props.getSeriesList();
       }
     }
@@ -79,14 +87,30 @@ export default class SeriesView extends Component {
     SendAnalytics.sendEvent('Series','showMoreSeries','');
   }
 
+  onConnected(){
+    this.props.getSeriesList();
+    SendAnalytics.sendEvent('Series','connected','');
+  }
+
   render() {
     if (!this.state.seriesList) {
+      if(this.state.isNetworkError){
+        return (
+          <NetworkView onConnected={this.onConnected.bind(this)}/>
+        );
+      }
+
       return (
         <View style={{flex: 1, paddingTop: 10}}>
           <ActivityIndicator />
         </View>
       );
     }else{
+
+      if(this.state.isNetworkError){
+        Utils.showAlert('No Internet connection. Please check your internet connection.')
+      }
+      
       return (
         <View style={{flex: 1}}>
           <ListView

@@ -8,14 +8,21 @@ const defaultState = {
 
 const reducer = (state=defaultState, action) => {
     switch (action.type) {
+      case Constants.SeriesNetworkError:
+        var newState = Object.assign({}, state);
+        newState.isNetworkError = true
+        return newState;
+
       case Constants.SeriesListChangeEvent:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.seriesList =  action.seriesList;
         var currentDate = new Date()
         newState.lastUpdatedAt = currentDate.getTime();
         return newState;
       case Constants.MoreSeriesSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         if(action.seriesList && action.seriesList.length == 0){
           newState.reachedEnd = true;
         }else{
@@ -25,6 +32,7 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.SeriesChangeEvent:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         var viewerSeries = Object.assign({}, state.selectedSeries);
         var selectedSeries = Object.assign({}, viewerSeries);
         var element = action.element;
@@ -48,11 +56,13 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.SeriesContentSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedContent = action.content;
         newState.selectedEpisode = action.episode;
         return newState;
       case Constants.SeriesAuthorDetailsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedAuthor = action.author;
         const link = "/author/"+action.author.penName;
         const linkObj = {
@@ -63,11 +73,13 @@ const reducer = (state=defaultState, action) => {
         return newState;
       case Constants.SeriesDetailsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedSeries = action.series;
         newState.selectedEpisode = action.episode;
         return newState;
       case Constants.SeriesCommentsSuccess:
         var newState = Object.assign({}, state);
+        newState.isNetworkError = false
         newState.selectedSeriesComments = action.comments;
         //5 is dependent on server
         newState.shdShowMoreComments = false;
@@ -78,7 +90,7 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.SeriesCommentPostSuccess:
         var newState = Object.assign({}, state);
-
+        newState.isNetworkError = false
         if(!newState.selectedSeriesComments){
           newState.selectedSeriesComments = [action.comment]
         }else{
@@ -90,6 +102,7 @@ const reducer = (state=defaultState, action) => {
 
       case Constants.SeriesMoreCommentsSuccess:
           var newState = Object.assign({}, state);
+          newState.isNetworkError = false
           if(action.comments.length > 0){
             var comments = Object.assign([], newState.selectedSeriesComments);
             newState.selectedSeriesComments = comments.concat(action.comments);
@@ -111,6 +124,7 @@ const reducer = (state=defaultState, action) => {
 
           if(action.series.timestamp !== state.selectedSeries.timestamp || action.series.author !==  state.selectedSeries.author || action.episode !== state.selectedEpisode){
               var newState = Object.assign({}, state);
+              newState.isNetworkError = false
               newState.selectedSeriesComments = undefined;
               newState.selectedSeries = undefined;
               newState.selectedAuthor = undefined;

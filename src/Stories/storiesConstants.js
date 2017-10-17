@@ -9,6 +9,7 @@ const Constants = {
             StoryCommentPostSuccess:'story_comment_post_success',
             StoryMoreCommentsSuccess:'story_more_comments_success',
             StoryClearSelectedState:'story_clear_selected_state',
-            StoryFiltersSuccess:'story_filters_success'
+            StoryFiltersSuccess:'story_filters_success',
+            StoriesNetworkError:'stories_network_error'
           };
 export default Constants;

@@ -8,7 +8,7 @@ let styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf:'center',
     fontFamily:'NotoSansTelugu',
-    fontSize:22,
+    fontSize:20,
     color:Colors.white,
     marginVertical:2
   }

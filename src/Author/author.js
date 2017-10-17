@@ -123,7 +123,7 @@ class Viewer extends React.Component {
           var series = seriesList[index];
           var item = this.getItem(series);
           item.isStory = false;
-          item.index = index++;
+          item.index = index;
           tag.push(<Item item={item} author={author}  onPress={this.onPressItem.bind(this)}/>);
         }
       }

@@ -3,6 +3,13 @@ import  Constants from './seriesConstants';
 import Server from '../Utils/server';
 
 
+function networkError(){
+  var obj =  {
+    type:Constants.SeriesNetworkError
+  };
+  return obj
+}
+
 function fetchSuccess(seriesList){
   return {
     type:Constants.SeriesListChangeEvent,
@@ -31,6 +38,8 @@ function fetchSeriesList(){
   return function(dispatch) {
     Server.fetch('series?limit=4',function(data){
         dispatch(fetchSuccess(data))
+    },function(){
+      dispatch(networkError())
     });
   }
 }
@@ -57,6 +66,8 @@ function getMoreSeries(){
         else{
           dispatch(moreSeriesSuccess([]))
         }
+      },function(){
+        dispatch(networkError())
       });
     }
 }
@@ -196,6 +207,8 @@ function getSeriesContent(authorId,name,episodeNumber){
     dispatch(contentSuccess(undefined,episodeNumber))
     Server.fetch('series/content/'+authorId+'/'+episode,function(data){
         dispatch(contentSuccess(data,episodeNumber))
+    },function(){
+      dispatch(networkError())
     });
   }
 }

@@ -16,7 +16,8 @@ const mapStateToProps = (state,props) => {
     episode:state.seriesStore.selectedEpisode,
     shdShowMoreComments:state.seriesStore.shdShowMoreComments,
     user:state.authStore,
-    params:props.params
+    params:props.params,
+    isNetworkError:state.seriesStore.isNetworkError
   }
 }
 
@@ -68,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     openComment:(data) =>{
       dispatch(NavigationActions.navigate({ routeName: 'Comment', params: data }));
+    },
+    goBack:()=>{
+      dispatch(NavigationActions.back());
     }
   }
 }

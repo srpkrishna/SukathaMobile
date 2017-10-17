@@ -1,17 +1,17 @@
 var BaseURL = "https://sukatha.com/api/";
-BaseURL = "http://192.168.1.8:3000/api/";
+//BaseURL = "http://192.168.1.8:3000/api/";
 
 const serverCall = {
-	fetch:function(url,successFunction){
-		this.connect('GET',url,'',successFunction);
+	fetch:function(url,successFunction,errorFunction){
+		this.connect('GET',url,'',successFunction,errorFunction);
 	},
-	directFetch:function(url,successFunction){
-		makeServerCall('GET',url,'',successFunction,successFunction);
+	directFetch:function(url,successFunction,errorFunction){
+		makeServerCall('GET',url,'',successFunction,errorFunction);
 	},
-	connect:function (reqType,reqURL,reqdata,successFunction)
+	connect:function (reqType,reqURL,reqdata,successFunction,errorFunction)
 	{
 		var body = JSON.stringify(reqdata);
-		makeServerCall(reqType,BaseURL+reqURL,body,successFunction,successFunction);
+		makeServerCall(reqType,BaseURL+reqURL,body,successFunction,errorFunction);
 	}
 
 };
@@ -22,9 +22,9 @@ function makeServerCall(reqType,serviceUrl,reqdata,successFunction,errorFunction
 		var myRequest;
 
 		if(reqType == 'GET'){
-			myRequest = new Request(serviceUrl);
+			myRequest = new Request(serviceUrl,{timeout:1000});
 		}else{
-			myRequest = new Request(serviceUrl, {method: reqType, body: reqdata,headers: {"Content-Type": "application/json"}});
+			myRequest = new Request(serviceUrl, {timeout:1000,method: reqType, body: reqdata,headers: {"Content-Type": "application/json"}});
 		}
 
 		fetch(myRequest)
@@ -36,7 +36,9 @@ function makeServerCall(reqType,serviceUrl,reqdata,successFunction,errorFunction
 				successFunction(response);
 		})
 		.catch(function(error) {
-				errorFunction(error);
+				if(errorFunction){
+					errorFunction(error);
+				}
 		});
 }
 export default serverCall

@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
   return {
     seriesList: state.seriesStore.seriesList,
     reachedEnd:state.seriesStore.reachedEnd,
-    lastUpdatedAt:state.seriesStore.lastUpdatedAt
+    lastUpdatedAt:state.seriesStore.lastUpdatedAt,
+    isNetworkError:state.seriesStore.isNetworkError
   }
 }
 

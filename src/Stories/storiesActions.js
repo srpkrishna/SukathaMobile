@@ -3,6 +3,13 @@ import  Constants from './storiesConstants';
 import Server from '../Utils/server';
 
 
+function networkError(){
+  var obj =  {
+    type:Constants.StoriesNetworkError
+  };
+  return obj
+}
+
 function fetchSuccess(stories,genre){
   var obj =  {
     type:Constants.StoriesChangeEvent,
@@ -36,6 +43,8 @@ function fetchStories(){
   return function(dispatch) {
     Server.fetch('stories?limit=4',function(data){
         dispatch(fetchSuccess(data))
+    },function(){
+      dispatch(networkError())
     });
   }
 }
@@ -72,6 +81,8 @@ function getMoreStories(){
           else{
             dispatch(moreStoriesSuccess([]))
           }
+      },function(){
+        dispatch(networkError())
       });
     }
 }
@@ -81,6 +92,8 @@ function getFilteredStories(genre){
       var q = "?limit=100&genre="+genre
       Server.fetch('stories'+q,function(data){
           dispatch(fetchSuccess(data,genre))
+      },function(){
+        dispatch(networkError())
       });
     }
 }
@@ -198,6 +211,8 @@ function getStoryContent(authorId,name){
   return function(dispatch) {
     Server.fetch('stories/content/'+authorId+'/'+name,function(data){
         dispatch(contentSuccess(data))
+    },function(){
+      dispatch(networkError())
     });
   }
 }

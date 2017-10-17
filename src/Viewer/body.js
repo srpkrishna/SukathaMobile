@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {View,Text,Image,StyleSheet} from 'react-native';
+import {View,Text,Image,StyleSheet,Platform} from 'react-native';
 import Colors from '../Utils/colors.js';
 
 const styles = StyleSheet.create({
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     lineHeight: 30,
     color:Colors.sBlue,
-    fontSize:18,
+    fontSize:(Platform.OS === 'android')? 16:18,
     paddingTop:15,
     fontFamily:'NotoSansTelugu'
   },

@@ -8,6 +8,7 @@ const Constants = {
             SeriesCommentsSuccess:'series_comments_success',
             SeriesCommentPostSuccess:'series_comment_post_success',
             SeriesMoreCommentsSuccess:'series_more_comments_success',
-            SeriesClearSelectedState:'series_clear_selected_state'
+            SeriesClearSelectedState:'series_clear_selected_state',
+            SeriesNetworkError:'series_network_error'
           };
 export default Constants;

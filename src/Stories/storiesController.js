@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
     stories: state.storiesStore.stories,
     reachedEnd:state.storiesStore.reachedEnd,
     lastUpdatedAt:state.storiesStore.lastUpdatedAt,
-    filter:state.storiesStore.filter
+    filter:state.storiesStore.filter,
+    isNetworkError:state.storiesStore.isNetworkError
   }
 }
 

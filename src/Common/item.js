@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet,Button,Image,View,Text,TouchableOpacity} from 'react-native';
+import {StyleSheet,Button,Image,View,Text,TouchableOpacity,Platform} from 'react-native';
 import Utils from '../Utils/utilityFunctions.js';
 import Colors from '../Utils/colors.js';
 
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     flexDirection: 'column',
-    alignItems:'flex-start',
     justifyContent: 'flex-start',
     paddingVertical:10,
     paddingHorizontal:5,
@@ -97,9 +96,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight:'bold',
   },
+  storyInfoRow:{
+    flex:1,
+    flexDirection: 'row',
+    justifyContent:'space-between'
+  },
   storyInfo:{
-    fontSize:14,
-    flex: 1,
+    fontSize:(Platform.OS === 'android')? 13:14,
     textAlign:'left',
     color:Colors.black,
     fontFamily: 'Lato-Light',
@@ -169,6 +172,18 @@ export default class Item extends React.Component {
       rightMetric = rightMetric + "  "+data.social.shares+" share"
     }
 
+    var storyInfoRight = ""
+    var storyInfoRightStyle = [styles.storyInfo]
+    if(data.episodeFrequency){
+
+      // if(data.episodeFrequency.toLowerCase() === "completed"){
+      //   storyInfoRightStyle.push({color:Colors.sBlue})
+      // }else{
+      //   storyInfoRightStyle.push({color:Colors.sPink})
+      // }
+      storyInfoRight = data.episodeFrequency
+    }
+
     return (
 
             <View style={styles.item}>
@@ -178,14 +193,16 @@ export default class Item extends React.Component {
                   <Text style={styles.textAuthor}>{data.authorDisplayName}</Text>
                 </View>
               </View>
-              <Text style={styles.textShortText}>{data.shortText}.</Text>
+              <Text style={styles.textShortText}>{data.shortText}</Text>
               <TouchableOpacity activeOpacity={0.5} onPress={this.onPressRow.bind(this)}>
                 <View style={styles.storyContainer}>
                   <Image style={styles.photo} source={{uri:imgSrc}} />
                   <View style={styles.info}>
-
                     <Text style={styles.textTitle}>{data.displayName}</Text>
-                    <Text style={styles.storyInfo}>{storyInfo}</Text>
+                    <View style={styles.storyInfoRow}>
+                      <Text style={styles.storyInfo}>{storyInfo}</Text>
+                      <Text style={storyInfoRightStyle}>{storyInfoRight}</Text>
+                    </View>
                   </View>
                 </View>
               </TouchableOpacity>

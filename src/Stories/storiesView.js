@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, Text, ListView,TouchableHighlight,TouchableNativeFeedback ,Platform,AppState} from 'react-native';
+import { ActivityIndicator, View, Text, ListView,TouchableHighlight,TouchableNativeFeedback,AppState} from 'react-native';
 import Item from '../Common/item.js';
 import Server from '../Utils/server';
 import SendAnalytics from '../Utils/analytics';
+import NetworkView from '../Common/networkView.js';
+import Utils from '../Utils/utilityFunctions.js';
 
 export default class StoriesView extends Component{
 
   getState(props){
 
     var isLoading = true;
+    var isNetworkError = false;
     var stories;
     if(props.stories && props.stories.length >0 ){
       var storiesList = Object.assign([], props.stories);
@@ -20,14 +23,19 @@ export default class StoriesView extends Component{
       stories = ds.cloneWithRows(storiesList);
     }
 
+    if(props.isNetworkError){
+      isNetworkError = true;
+    }
+
     return {
       isLoading: isLoading,
-      stories:stories
+      stories:stories,
+      isNetworkError:isNetworkError
     }
   }
   constructor(props) {
     super(props);
-    this.state = this.getState(props.stories)
+    this.state = this.getState(props)
   }
 
   componentDidMount() {
@@ -53,10 +61,10 @@ export default class StoriesView extends Component{
   }
 
   handleAppStateChange = (nextAppState) => {
-    if (nextAppState === 'active' && this.props.lastUpdatedAt) {
+    if (nextAppState === 'active' && (this.props.lastUpdatedAt || this.props.isNetworkError)) {
       var currentDate = new Date()
       var diff = Math.abs(currentDate.getTime() - this.props.lastUpdatedAt) / 3600000;
-      if(diff > 2){
+      if(diff > 2 || this.props.isNetworkError){
         this.props.getStories();
       }
     }
@@ -86,14 +94,29 @@ export default class StoriesView extends Component{
     SendAnalytics.sendEvent('Stories','showMoreStories','');
   }
 
+  onConnected(){
+    this.props.getStories();
+    SendAnalytics.sendEvent('Stories','connected','');
+  }
+
   render() {
     if (this.state.isLoading) {
+
+      if(this.state.isNetworkError){
+        return (
+          <NetworkView onConnected={this.onConnected.bind(this)}/>
+        );
+      }
       return (
         <View style={{flex: 1, paddingTop:10}}>
           <ActivityIndicator />
         </View>
       );
     }else{
+
+      if(this.state.isNetworkError){
+        Utils.showAlert('No Internet connection. Please check your internet connection.')
+      }
       return (
         <View style={{flex: 1}}>
           <ListView

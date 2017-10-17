@@ -42,6 +42,11 @@ class Viewer extends React.Component {
     t = setTimeout(function(){ that.countTime() }, 1000*60);
   }
 
+  componentWillmount(){
+    if(this.props.isNetworkError){
+      this.props.goBack();
+    }
+  }
   componentWillUnmount(){
     c = 0;
     isReadTimeOver = false;
@@ -333,6 +338,10 @@ class Viewer extends React.Component {
   }
 
   getState(props, isConstructor){
+
+    if(isConstructor && props.isNetworkError){
+      props.goBack();
+    }
 
     var content = props.content;
     var story = props.story;
