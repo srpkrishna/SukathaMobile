@@ -38,22 +38,26 @@ function fetchClientTokenWithId(){
 }
 
 function fetchClientTokenWithEmail(user){
-  var clientID = DeviceInfo.getUniqueID();
-  var version = DeviceInfo.getVersion();
-  var client = {
-    id:clientID,
-    platform:Platform.OS,
-    email:user.email,
-    version:version
-  }
+  return function(dispatch) {
+    var clientID = DeviceInfo.getUniqueID();
+    var version = DeviceInfo.getVersion();
+    var client = {
+      id:clientID,
+      platform:Platform.OS,
+      email:user.email,
+      version:version
+    }
 
-  Server.connect('POST','user',user,function(data){
-      if(!data.code){
-          SendAnalytics.setUserId(data.id);
-          client.userId = data.id
-          Notifications.register(client)
-      }
-  });
+    Server.connect('POST','user',user,function(data){
+        if(!data.code){
+            SendAnalytics.setUserId(data.id);
+            client.userId = data.id
+            Notifications.register(client)
+            user.userId = data.id
+            return dispatch(loginUserSuccess(user));
+        }
+    });
+  }
 }
 
 function fetchUser(){
@@ -76,8 +80,8 @@ function fetchUser(){
         user.imageUrl = json.picture.data.url;
         user.token = accessToken;
         user.service = 'fb';
-        fetchClientTokenWithEmail(user)
-        return dispatch(loginUserSuccess(user));
+
+        return dispatch(fetchClientTokenWithEmail(user));
       });
     })
 
@@ -101,8 +105,7 @@ function fetchUser(){
           user.imageUrl = json.photo;
           user.token = json.idToken;
           user.service = 'google';
-          fetchClientTokenWithEmail(user)
-          return dispatch(loginUserSuccess(user));
+          return dispatch(fetchClientTokenWithEmail(user));
 
         }).done();
     });

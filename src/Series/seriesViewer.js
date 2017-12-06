@@ -23,13 +23,8 @@ const mapStateToProps = (state,props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateSocial: (element,authorId,timestamp,episode) => {
-      const seriesId = {
-        author:authorId,
-        timestamp:timestamp,
-        episode:episode
-      }
-      const obj = Actions.updateSocial(element,seriesId);
+    updateSocial: (element,socialParams) => {
+      const obj = Actions.updateSocial(element,socialParams);
       dispatch(obj);
     },
     showMoreComments:(series,episodeNumber,lastTimeStamp) =>{

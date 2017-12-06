@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {StyleSheet,Button,Image,View,Text,TouchableOpacity,Platform} from 'react-native';
+import {StyleSheet,Button,Image,View,Text,TouchableOpacity} from 'react-native';
 import Utils from '../Utils/utilityFunctions.js';
 import Colors from '../Utils/colors.js';
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between'
   },
   storyInfo:{
-    fontSize:(Platform.OS === 'android')? 13:14,
+    fontSize:13,
     textAlign:'left',
     color:Colors.black,
     fontFamily: 'Lato-Light',
@@ -173,15 +173,13 @@ export default class Item extends React.Component {
     }
 
     var storyInfoRight = ""
-    var storyInfoRightStyle = [styles.storyInfo]
     if(data.episodeFrequency){
-
-      // if(data.episodeFrequency.toLowerCase() === "completed"){
-      //   storyInfoRightStyle.push({color:Colors.sBlue})
-      // }else{
-      //   storyInfoRightStyle.push({color:Colors.sPink})
-      // }
       storyInfoRight = data.episodeFrequency
+    }
+
+    var type = ""
+    if(data.type){
+      type = Utils.capitalizeFirstLetter(data.type)
     }
 
     return (
@@ -198,10 +196,13 @@ export default class Item extends React.Component {
                 <View style={styles.storyContainer}>
                   <Image style={styles.photo} source={{uri:imgSrc}} />
                   <View style={styles.info}>
-                    <Text style={styles.textTitle}>{data.displayName}</Text>
+                    <View style={styles.storyInfoRow}>
+                      <Text style={styles.textTitle}>{data.displayName}</Text>
+                      <Text style={styles.storyInfo}>{type}</Text>
+                    </View>
                     <View style={styles.storyInfoRow}>
                       <Text style={styles.storyInfo}>{storyInfo}</Text>
-                      <Text style={storyInfoRightStyle}>{storyInfoRight}</Text>
+                      <Text style={styles.storyInfo}>{storyInfoRight}</Text>
                     </View>
                   </View>
                 </View>

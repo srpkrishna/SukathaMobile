@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StoriesHome from './storiesHome.js';
 import SeriesHome from './seriesHome.js';
+import WallHome from './wallHome.js';
 import ProfileHome from '../Profile/profileController.js';
 import Viewer from '../Viewer/viewerController.js';
 import Author from '../Author/authorController.js';
@@ -32,7 +33,7 @@ const tabConfig = {
   animationEnabled: true,
   swipeEnabled:true,
   lazy: true,
-  initialRouteName: 'Stories',
+  initialRouteName: 'Wall',
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom'
 }
@@ -43,6 +44,9 @@ const MyTab = TabNavigator({
   },
   Series: {
     screen: SeriesHome,
+  },
+  Wall:{
+    screen: WallHome,
   },
   Profile:{
     screen: ProfileHome,

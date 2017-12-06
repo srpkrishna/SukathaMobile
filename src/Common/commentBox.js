@@ -97,6 +97,7 @@ class CommentScreen extends React.Component {
             autoFocus = {true}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
+            underlineColorAndroid='rgba(0,0,0,0)'
           />
           <View style={styles.publishView}>
             <SButton title={title} onPress={this.onPress.bind(this)}/>

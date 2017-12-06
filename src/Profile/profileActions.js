@@ -32,6 +32,8 @@ function getMyDetails(user){
       }
       Server.connect('POST','profile/me',body,function(data){
           dispatch(myDetailsSuccess(data));
+      },function(data){
+          dispatch(myDetailsSuccess(data));
       });
     }
 }

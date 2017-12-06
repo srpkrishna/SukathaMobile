@@ -22,12 +22,8 @@ const mapStateToProps = (state,props) => {
 
 const mapDispatchToProps = (dispatch,state) => {
   return {
-    updateSocial: (element,author,timestamp) => {
-      const storyId = {
-        author:author,
-        timestamp:timestamp
-      }
-      const obj = Actions.updateSocial(element,storyId);
+    updateSocial: (element,socialParams) => {
+      const obj = Actions.updateSocial(element,socialParams);
       dispatch(obj);
     },
     showMoreComments:(story,lastTimeStamp) =>{

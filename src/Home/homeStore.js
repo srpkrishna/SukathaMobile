@@ -7,6 +7,7 @@ import storiesReducer from '../Stories/storiesStore.js';
 import authorReducer from '../Author/authorStore.js';
 import profileReducer from '../Profile/profileStore.js';
 import authReducer from '../Auth/authStore.js';
+import wallReducer from '../Wall/wallStore.js';
 import { NavigationActions } from 'react-navigation';
 import ScreenTrackerMiddleware from '../Common/screenTrackerMiddleware.js';
 // Start with two routes: The Main screen, with the Login screen on top.
@@ -66,7 +67,8 @@ const AppReducer = combineReducers({
   seriesStore:seriesReducer,
   storiesStore:storiesReducer,
   authorStore:authorReducer,
-  profileStore:profileReducer
+  profileStore:profileReducer,
+  wallStore:wallReducer
 });
 
 const middlewares = [thunkMiddleware,ScreenTrackerMiddleware];// lets us dispatch() functions

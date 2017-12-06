@@ -4,13 +4,13 @@ import { ActivityIndicator, View,ListView,Text,Button,StyleSheet} from 'react-na
 import Body from './body.js';
 import Header from './header.js';
 import EpisodeStrip from './episodeStrip.js';
-import AuthorBlock from './authorBlock.js';
+import AuthorBlock from '../Common/authorBlock.js';
 import Colors from '../Utils/colors.js';
 import CommonStyles from '../Utils/styles.js';
 import Comments from './comments.js';
 import Share from '../Common/share.js';
 import SocialBar from '../Common/socialBar.js';
-import Storage from '../Utils/storage.js'
+import Storage from '../Utils/storage.js';
 import SendAnalytics from '../Utils/analytics';
 
 const styles = StyleSheet.create({
@@ -228,7 +228,20 @@ class Viewer extends React.Component {
         return
     }
 
-    this.props.updateSocial(action,authorId,timestamp,this.props.episode)
+    var socialParams = {
+      author:authorId,
+      timestamp:timestamp
+    }
+
+    if(this.props.user && this.props.user.isLoggedIn){
+      socialParams.user = this.props.user
+    }
+
+    if(this.props.episode){
+      socialParams.episode = this.props.episode
+    }
+
+    this.props.updateSocial(action,socialParams)
 
     var that = this
     var objToStore = {}
@@ -307,7 +320,7 @@ class Viewer extends React.Component {
     if(story){
       if( story.name && c > 0){
         name = Utils.removeSpaceAndCapitals(story.name);
-        SendAnalytics.sendEvent('Story','reading',name,c);
+        SendAnalytics.sendEvent('story','reading',name,c);
         SendAnalytics.sendEvent(name,'reading','time',c);
       }
       var time = 10

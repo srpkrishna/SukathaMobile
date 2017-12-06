@@ -13,7 +13,8 @@ const Colors = {
   headerBlue:'#162b4d',
   headerPink:'#b71757',
   darkGray:'#555',
-  transBlack:'rgba(0,0,0,0.8)'
+  transBlack:'rgba(0,0,0,0.8)',
+  transWhite:'rgba(255,255,255,0.2)'
 }
 
 export default Colors;

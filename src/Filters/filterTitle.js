@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 class FilterTitle extends React.Component {
   render(){
-    var filter = this.props.filter ? this.props.filter : "all"
+    var filter = this.props.filter ? this.props.filter : "All genres"
     var title = Utils.capitalizeFirstLetter(filter) + " ▼"
     return (
       <TouchableOpacity style={styles.container} onPress={() => this.props.openFilters(filter)}><Text style={styles.text}>{title}</Text></TouchableOpacity>

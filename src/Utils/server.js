@@ -1,5 +1,5 @@
 var BaseURL = "https://sukatha.com/api/";
-//BaseURL = "http://192.168.1.8:3000/api/";
+BaseURL = "http://192.168.1.5:3000/api/";
 
 const serverCall = {
 	fetch:function(url,successFunction,errorFunction){

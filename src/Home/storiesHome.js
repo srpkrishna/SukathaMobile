@@ -17,7 +17,7 @@ class StoriesHome extends React.Component {
         style={[CommonStyles.icon, {tintColor: tintColor}]}
       />
     ),
-    headerLeft:(<FilterTitleController />),
+    headerTitle:(<FilterTitleController />),
     headerStyle:{
       backgroundColor:Colors.headerBlue
     }
